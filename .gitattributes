@@ -1,2 +1,12 @@
+# Normalize line endings for all text files
+* text=auto
+
+# mvnw script
 /mvnw text eol=lf
+
+# Scripts should always use LF
+*.sh text eol=lf
+
+# Windows batch scripts
+*.bat text eol=crlf
 *.cmd text eol=crlf
