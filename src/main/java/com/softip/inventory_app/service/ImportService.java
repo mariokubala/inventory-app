@@ -105,10 +105,11 @@ public class ImportService {
                     }
 
                     // Parse fields
-                    long csvAssetId = Long.parseLong(cols[0].trim());          // ID
+                    long csvAssetId = Long.parseLong(cols[0].trim());         // ID
                     String name = cols[1].trim();                             // NAME
                     String roomName = cols[2].trim();                         // ROOM (maybe empty)
                     int typeCode = Integer.parseInt(cols[3].trim());          // TYPE 0/1
+//                    int typeCode = Integer.valueOf(cols[3].trim());
                     String priceRaw = cols[4].trim();                         // PRICE e.g. "11299,15EUR"
                     String inDateRaw = cols[5].trim();                        // IN_DATE YYYYMMDD
                     String outDateRaw = cols[6].trim();                       // OUT_DATE or empty
