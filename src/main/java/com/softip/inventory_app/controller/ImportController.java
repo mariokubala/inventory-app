@@ -19,8 +19,7 @@ public class ImportController {
 
     /**
      * Example call:
-     *          POST http://localhost:8080/api/loadFromFile?path=C:\temp\inventura.csv
-     * curl -X POST "http://localhost:8080/api/loadFromFile?path=D:/data/inventura.csv"
+     * curl -X POST "http://localhost:8080/api/loadFromFile?path=c:/temp/inventuraVzor.csv"
      * The path must be accessible from the machine where the Spring Boot app runs.
      */
     @PostMapping("/loadFromFile")

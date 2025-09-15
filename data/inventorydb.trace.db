@@ -110,3 +110,9 @@ Caused by: org.h2.jdbc.JdbcSQLInvalidAuthorizationSpecException: Wrong user name
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:522)
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
 	... 50 more
+2025-09-15 23:06:39.913830+02:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "[*]FILENAME FILENAME FILENAME FILENAME"; SQL statement:
+FILENAME FILENAME FILENAME FILENAME [42000-232]
+2025-09-15 23:06:43.317008+02:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "[*]FILENAME FILENAME FILENAME FILENAME"; SQL statement:
+FILENAME FILENAME FILENAME FILENAME [42000-232]

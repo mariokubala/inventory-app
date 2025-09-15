@@ -80,7 +80,7 @@ public class ImportService {
             return; // do not re-import
         }
 
-        // Prepare err.log (append mode). Put it in project root or choose logs/err.log
+        // Prepare err.log (append mode). - in logs/err.log
         Path errLogPath = Paths.get("logs/err.log");
         Files.createDirectories(errLogPath.getParent() == null ? Paths.get(".") : errLogPath.getParent());
 
