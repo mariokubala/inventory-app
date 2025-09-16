@@ -51,5 +51,6 @@ buildNumber.properties
 # JDT-specific (Eclipse Java Development Tools)
 .classpath
 
+# Ignore whole folders (and everything inside)
 logs/
 data/

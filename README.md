@@ -23,7 +23,7 @@ The app starts on http://localhost:8080
 
 ## Configuration
 
-Database is an H2 file located in ./data/inventorydb.
+Database is an H2 file located in mem:inventorydb.
 
 Error log is in ./logs.err.log
 
@@ -33,7 +33,7 @@ Error log is in ./logs.err.log
 
 2. Use JDBC URL:
    ```bash
-    jdbc:h2:file:./data/inventorydb
+    jdbc:h2:mem:inventorydb
 
 ## Usage
 1. Load CSV
