@@ -27,6 +27,11 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
+
 /**
  * Service for importing CSV inventory files.
  * - Accepts a path to a CSV file (semicolon separated)
@@ -73,10 +78,27 @@ public class ImportService {
 
         String filename = csvPath.getFileName().toString();
 
-        // 1) Check repeated import
+        // 1) Check repeated import - write to log error about repeated import
+        //if (importedFileRepo.existsByFilename(filename)) {
+        //    logger.error("Pokus o opakovaný import súboru: {}", filename);
+        //    return; // do not re-import
+        //}
         if (importedFileRepo.existsByFilename(filename)) {
-            // as spec: write to log error about repeated import
-            logger.error("Pokus o opakovaný import súboru: {}", filename);
+            String msg = "Pokus o opakovaný import súboru: " + filename;
+            logger.error(msg);
+
+            // append to logs/err.log so it's visible outside IDE too
+            try {
+                Path logDir = Paths.get("logs");
+                if (!Files.exists(logDir)) {
+                    Files.createDirectories(logDir);
+                }
+                Path errFile = logDir.resolve("err.log");
+                Files.writeString(errFile, msg + System.lineSeparator(),
+                        StandardOpenOption.CREATE, StandardOpenOption.APPEND);
+            } catch (Exception e) {
+                logger.warn("Failed to write to logs/err.log: " + e.getMessage());
+            }
             return; // do not re-import
         }
 
