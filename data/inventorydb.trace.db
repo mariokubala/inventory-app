@@ -1,3 +1,0 @@
-2025-09-16 01:02:26.655086+02:00 jdbc[13]: exception
-org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "ASSET_STATE" not found; SQL statement:
-SELECT * FROM asset_state [42102-232]
