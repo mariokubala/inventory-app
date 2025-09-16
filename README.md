@@ -5,18 +5,17 @@ Spring Boot application for loading and viewing inventory data.
 ## Build & Run
 
 1. **Clone repository**
-
    ```bash
    git clone https://github.com/mariokubala/inventory-app.git
    cd inventory-app
 
 2. **Build**
-
    ```bash
     mvnw clean package
+     or Windows / Git Bash:
+    ./mvnw spring-boot:run
 
 3. **Run**
-
    ```bash
     java -jar target/inventory-app-0.0.1-SNAPSHOT.jar
 
@@ -29,34 +28,49 @@ Database is an H2 file located in ./data/inventorydb.
 Error log is in ./logs.err.log
 
 1. You can access its console at:
-
    ```bash
     http://localhost:8080/h2-console
 
 2. Use JDBC URL:
-
    ```bash
     jdbc:h2:file:./data/inventorydb
 
 ## Usage
 1. Load CSV
-
    ```bash
     GET http://localhost:8080/api/loadFromFile?path=c:/temp/inventuraVzor.csv
     or
     curl -X POST "http://localhost:8080/api/loadFromFile?path=c:/temp/inventuraVzor.csv"
 
-2. Browse H2 Console
+2. Test rooms endpoint
+   ```bash
+    curl http://localhost:8080/api/rooms
+    expects JSON array of room names
+ 
+4. Test items/state endpoint
+   ```bash
+    curl http://localhost:8080/api/items/state/OK
+    curl http://localhost:8080/api/items/state/O
+    curl http://localhost:8080/api/items/state/missing
+    curl http://localhost:8080/api/items/state/removed
 
+5. Browse H2 Console
    ```bash
    Open http://localhost:8080/h2-console
    and login with:
    Driver: org.h2.Driver
-   JDBC URL: jdbc:h2:file:./data/inventorydb
+   JDBC URL: jdbc:h2:mem:inventorydb
    User: softip / (empty password)
 
-3. Reload same .csv for testing
+6. Reload same .csv for testing
    ```bash
     Run in console:
     DELETE FROM imported_files;
     DELETE FROM assets;
+
+7. Check that data.sql runs 
+   ```bash
+    Run in console:
+    SELECT * FROM asset_types;
+    — you should see the two rows inserted by data.sql
+

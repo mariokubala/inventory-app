@@ -19,9 +19,31 @@ public class ItemController {
 
     @GetMapping("/state/{state}")
     public List<Item> getByState(@PathVariable String state) {
-        if ("removed".equalsIgnoreCase(state)) {
+        // --- normalize parameter ---
+        if (state == null || state.trim().isEmpty()) {
+            throw new IllegalArgumentException("state must be provided");
+        }
+
+        String s = state.trim().toUpperCase();
+
+        // --- handle "removed" (items with OUT_DATE != null) ---
+        if ("REMOVED".equals(s) || "REM".equals(s)) {
+            // <- this calls your existing service for removed items
             return itemService.getRemovedItems();
         }
-        return itemService.getItemsByState(State.valueOf(state.toUpperCase()));
+
+        // --- map human-friendly names to enum codes ---
+        if ("OK".equals(s)) s = "O";
+        if ("MISSING".equals(s)) s = "M";
+        if ("MOVED".equals(s)) s = "V";
+
+        // --- try to convert to State enum ---
+        try {
+            State st = State.valueOf(s);   // valid values: O, M, V
+            return itemService.getItemsByState(st);
+        } catch (IllegalArgumentException ex) {
+            // nice message instead of 500 error
+            throw new IllegalArgumentException("Unknown state: " + state);
+        }
     }
 }
