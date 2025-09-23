@@ -15,18 +15,21 @@
 <body>
 <h1>Inventory – getMajetok</h1>
 
-<!-- Input for state for button click -->
-<!--
-<label for="stateInput">State (OK, M, V, REMoved): </label>
-<input type="text" id="stateInput" value="OK">
-<button onclick="loadData()">Load</button>
- -->
-<!-- Input for state for enter -->
+<!-- Input for state for enter and button click
 <form onsubmit="loadData(); return false;" style="display: inline;">
     <label for="stateInput">State (OK, M, V, REMoved): </label>
     <input type="text" id="stateInput" value="OK" />
     <button type="submit">Load</button>
 </form>
+ -->
+
+<!-- Input as buttons -->
+<div>
+    <button onclick="loadData('OK')">OK</button>
+    <button onclick="loadData('M')">Missing</button>
+    <button onclick="loadData('V')">Moved</button>
+    <button onclick="loadData('removed')">Removed</button>
+</div>
 
 
 <div id="error"></div>
@@ -46,8 +49,8 @@
 </table>
 
 <script>
-    async function loadData() {
-      const state = document.getElementById("stateInput").value.trim();
+    async function loadData(state) {
+<!--      const state = document.getElementById("stateInput").value.trim(); -->
       const tableBody = document.querySelector("#inventoryTable tbody");
       const errorDiv = document.getElementById("error");
       tableBody.innerHTML = "";
