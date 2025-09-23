@@ -15,10 +15,19 @@
 <body>
 <h1>Inventory – getMajetok</h1>
 
-<!-- Input for state -->
-<label for="stateInput">State (OK, M, V, removed): </label>
+<!-- Input for state for button click -->
+<!--
+<label for="stateInput">State (OK, M, V, REMoved): </label>
 <input type="text" id="stateInput" value="OK">
 <button onclick="loadData()">Load</button>
+ -->
+<!-- Input for state for enter -->
+<form onsubmit="loadData(); return false;" style="display: inline;">
+    <label for="stateInput">State (OK, M, V, REMoved): </label>
+    <input type="text" id="stateInput" value="OK" />
+    <button type="submit">Load</button>
+</form>
+
 
 <div id="error"></div>
 <table id="inventoryTable">

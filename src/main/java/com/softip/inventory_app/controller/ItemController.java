@@ -27,7 +27,7 @@ public class ItemController {
         String s = state.trim().toUpperCase();
 
         // --- handle "removed" (items with OUT_DATE != null) ---
-        if ("REMOVED".equals(s) || "REM".equals(s)) {
+        if ("REMOVED".equals(s) || "REM".equals(s) || "R".equals(s)) {
             // <- this calls your existing service for removed items
             return itemService.getRemovedItems();
         }
