@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Inventory App</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 2rem; }
+        h1 { color: #333; }
+        table { border-collapse: collapse; width: 100%; margin-top: 1rem; }
+        th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
+        th { background: #f2f2f2; }
+        #error { color: red; margin-top: 1rem; }
+    </style>
+</head>
+<body>
+<h1>Inventory – getMajetok</h1>
+
+<!-- Input for state -->
+<label for="stateInput">State (OK, M, V, removed): </label>
+<input type="text" id="stateInput" value="OK">
+<button onclick="loadData()">Load</button>
+
+<div id="error"></div>
+<table id="inventoryTable">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Room</th>
+        <th>Type</th>
+        <th>Price</th>
+        <th>In Date</th>
+        <th>Out Date</th>
+        <th>State</th>
+    </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+
+<script>
+    async function loadData() {
+      const state = document.getElementById("stateInput").value.trim();
+      const tableBody = document.querySelector("#inventoryTable tbody");
+      const errorDiv = document.getElementById("error");
+      tableBody.innerHTML = "";
+      errorDiv.textContent = "";
+
+      try {
+        const response = await fetch(`/api/items/state/${state}`);
+        if (!response.ok) {
+          throw new Error(`Server returned ${response.status}`);
+        }
+        const data = await response.json();
+
+        if (data.length === 0) {
+          errorDiv.textContent = "No items found for this state.";
+          return;
+        }
+
+        data.forEach(item => {
+          const row = document.createElement("tr");
+          row.innerHTML = `
+            <td>${item.id || ""}</td>
+            <td>${item.room || ""}</td>
+            <td>${item.type || ""}</td>
+            <td>${item.price || ""}</td>
+            <td>${item.inDate || ""}</td>
+            <td>${item.outDate || ""}</td>
+            <td>${item.state || ""}</td>
+          `;
+          tableBody.appendChild(row);
+        });
+      } catch (err) {
+        errorDiv.textContent = "Error: " + err.message;
+      }
+    }
+</script>
+</body>
+</html>
+

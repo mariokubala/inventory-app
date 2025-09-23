@@ -42,7 +42,11 @@ Error log is in ./logs.err.log
     or
     curl -X POST "http://localhost:8080/api/loadFromFile?path=c:/temp/inventuraVzor.csv"
 
-2. Test rooms endpoint
+2. Check the table
+   ```bash
+   http://localhost:8080/index.html
+
+3. Test rooms endpoint
    ```bash
     curl http://localhost:8080/api/rooms
     expects JSON array of room names
