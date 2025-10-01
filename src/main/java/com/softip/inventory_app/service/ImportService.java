@@ -81,12 +81,8 @@ public class ImportService {
         String filename = csvPath.getFileName().toString();
 
         // 1) Check repeated import - write to log error about repeated import
-        //if (importedFileRepo.existsByFilename(filename)) {
-        //    logger.error("Pokus o opakovaný import súboru: {}", filename);
-        //    return; // do not re-import
-        //}
         if (importedFileRepo.existsByFilename(filename)) {
-            String msg = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
+            String msg = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd_HH:mm:ss"))
                     + " Pokus o opakovaný import súboru: " + filename;
             logger.error(msg);
 
