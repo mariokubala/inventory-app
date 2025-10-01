@@ -15,22 +15,15 @@
 <body>
 <h1>Inventory – getMajetok</h1>
 
-<!-- Input for state for enter and button click
-<form onsubmit="loadData(); return false;" style="display: inline;">
-    <label for="stateInput">State (OK, M, V, REMoved): </label>
-    <input type="text" id="stateInput" value="OK" />
-    <button type="submit">Load</button>
-</form>
- -->
-
-<!-- Input as buttons -->
+<!-- Input as buttons only -->
 <div>
+    <button onclick="openFileDialog()">Load c:/temp/*.csv</button>
+    <input type="file" id="csvFile" accept=".csv" style="display:none" />
     <button onclick="loadData('OK')">OK</button>
     <button onclick="loadData('M')">Missing</button>
     <button onclick="loadData('V')">Moved</button>
     <button onclick="loadData('removed')">Removed</button>
 </div>
-
 
 <div id="error"></div>
 <table id="inventoryTable">
@@ -85,7 +78,29 @@
         errorDiv.textContent = "Error: " + err.message;
       }
     }
+
+    function openFileDialog() {
+      document.getElementById('csvFile').click();
+    }
+
+    document.getElementById('csvFile').addEventListener('change', function(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      // browser doesn't give full path, only filename!
+      const fileName = file.name;
+
+      fetch(`/api/loadFromFile?path=c:/temp/${fileName}`, { method: 'POST' })
+        .then(response => response.text())
+        .then(msg => {
+          alert("Server response: " + msg);
+        })
+        .catch(error => {
+          alert("Error: " + error);
+        });
+    });
 </script>
+
 </body>
 </html>
 

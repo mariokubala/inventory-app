@@ -42,7 +42,7 @@ Error log is in ./logs.err.log
     or
     curl -X POST "http://localhost:8080/api/loadFromFile?path=c:/temp/inventuraVzor.csv"
 
-2. Check the table
+2. Check the table and load .csv file from local c:/temp/
    ```bash
    http://localhost:8080/index.html
 
