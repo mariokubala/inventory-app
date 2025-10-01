@@ -30,6 +30,7 @@
     <thead>
     <tr>
         <th>ID</th>
+        <th>Name</th>
         <th>Room</th>
         <th>Type</th>
         <th>Price</th>
@@ -43,7 +44,6 @@
 
 <script>
     async function loadData(state) {
-<!--      const state = document.getElementById("stateInput").value.trim(); -->
       const tableBody = document.querySelector("#inventoryTable tbody");
       const errorDiv = document.getElementById("error");
       tableBody.innerHTML = "";
@@ -64,9 +64,10 @@
         data.forEach(item => {
           const row = document.createElement("tr");
           row.innerHTML = `
-            <td>${item.id || ""}</td>
-            <td>${item.room || ""}</td>
-            <td>${item.type || ""}</td>
+            <td>${item.assetId || ""}</td>
+            <td>${item.name || ""}</td>
+            <td>${item.room.name || ""}</td>
+            <td>${item.type.name || ""}</td>
             <td>${item.price || ""}</td>
             <td>${item.inDate || ""}</td>
             <td>${item.outDate || ""}</td>
@@ -79,10 +80,10 @@
       }
     }
 
+    // open .csv file from local disk c:/temp/
     function openFileDialog() {
       document.getElementById('csvFile').click();
     }
-
     document.getElementById('csvFile').addEventListener('change', function(event) {
       const file = event.target.files[0];
       if (!file) return;

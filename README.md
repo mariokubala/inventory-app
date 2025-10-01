@@ -59,22 +59,29 @@ Error log is in ./logs.err.log
     curl http://localhost:8080/api/items/state/removed
 
 5. Browse H2 Console
-   ```bash
-   Open http://localhost:8080/h2-console
-   and login with:
-   Driver: org.h2.Driver
-   JDBC URL: jdbc:h2:mem:inventorydb
-   User: softip / (empty password)
+    ```bash
+    Open http://localhost:8080/h2-console
+    and login with:
+    Driver: org.h2.Driver
+    JDBC URL: jdbc:h2:mem:inventorydb
+    User: softip / (empty password)
 
 6. Reload same .csv for testing
-   ```bash
+    ```bash
     Run in console:
     DELETE FROM imported_files;
     DELETE FROM assets;
+    - it should delete previous .csv
 
 7. Check that data.sql runs 
-   ```bash
+    ```bash
     Run in console:
     SELECT * FROM asset_types;
-    — you should see the two rows inserted by data.sql
+    - you should see the two rows inserted by data.sql
 
+8. Check what is in the DB
+    ```bash
+    Run in console:
+    SELECT * FROM items;        - it shows all lines loaded from .csv file
+    SELECT * FROM rooms;        - it shows names for IDs
+    SELECT * FROM asset_types;  - it shows names for IDs
