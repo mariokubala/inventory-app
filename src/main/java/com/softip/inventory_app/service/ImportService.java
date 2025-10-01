@@ -32,6 +32,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 
+import static javax.print.attribute.standard.MediaPrintableArea.MM;
+
 /**
  * Service for importing CSV inventory files.
  * - Accepts a path to a CSV file (semicolon separated)
@@ -84,7 +86,8 @@ public class ImportService {
         //    return; // do not re-import
         //}
         if (importedFileRepo.existsByFilename(filename)) {
-            String msg = "Pokus o opakovaný import súboru: " + filename;
+            String msg = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
+                    + " Pokus o opakovaný import súboru: " + filename;
             logger.error(msg);
 
             // append to logs/err.log so it's visible outside IDE too
