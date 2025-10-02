@@ -46,4 +46,10 @@ public class ItemController {
             throw new IllegalArgumentException("Unknown state: " + state);
         }
     }
+
+    // DEBUG: get all items from DB
+    @GetMapping("/all")
+    public List<Item> getAllItems() {
+        return itemService.getAllItems();
+    }
 }

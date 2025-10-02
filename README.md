@@ -57,6 +57,7 @@ Error log is in ./logs.err.log
     curl http://localhost:8080/api/items/state/O
     curl http://localhost:8080/api/items/state/missing
     curl http://localhost:8080/api/items/state/removed
+    curl http://localhost:8080/api/items/all
 
 5. Browse H2 Console
     ```bash

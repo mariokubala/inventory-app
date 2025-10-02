@@ -23,4 +23,13 @@ public class ItemService {
     public List<Item> getRemovedItems() {
         return itemRepository.findByOutDateNotNullOrderByPriceDesc();
     }
+
+    // DEBUG: return all items
+//    public List<Item> getAllItems() {
+//        return itemRepository.findAll();
+//    }
+
+    public List<Item> getAllItems() {
+        return itemRepository.findAll();
+    }
 }

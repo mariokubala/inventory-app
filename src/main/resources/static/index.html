@@ -23,6 +23,7 @@
     <button onclick="loadData('M')">Missing</button>
     <button onclick="loadData('V')">Moved</button>
     <button onclick="loadData('removed')">Removed</button>
+    <button onclick="loadAllItems()">Show All Items</button>
 </div>
 
 <div id="error"></div>
@@ -43,40 +44,41 @@
 </table>
 
 <script>
-    async function loadData(state) {
+    function renderTable(data) {
       const tableBody = document.querySelector("#inventoryTable tbody");
       const errorDiv = document.getElementById("error");
       tableBody.innerHTML = "";
       errorDiv.textContent = "";
 
+      if (!data || data.length === 0) {
+        errorDiv.textContent = "No items found.";
+        return;
+      }
+
+      data.forEach(item => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td>${item.assetId || ""}</td>
+          <td>${item.name || ""}</td>
+          <td>${item.room?.name || ""}</td>
+          <td>${item.type?.name || ""}</td>
+          <td>${item.price || ""}</td>
+          <td>${item.inDate || ""}</td>
+          <td>${item.outDate || ""}</td>
+          <td>${item.state || ""}</td>
+        `;
+        tableBody.appendChild(row);
+      });
+    }
+
+    async function loadData(state) {
       try {
         const response = await fetch(`/api/items/state/${state}`);
-        if (!response.ok) {
-          throw new Error(`Server returned ${response.status}`);
-        }
+        if (!response.ok) throw new Error(`Server returned ${response.status}`);
         const data = await response.json();
-
-        if (data.length === 0) {
-          errorDiv.textContent = "No items found for this state.";
-          return;
-        }
-
-        data.forEach(item => {
-          const row = document.createElement("tr");
-          row.innerHTML = `
-            <td>${item.assetId || ""}</td>
-            <td>${item.name || ""}</td>
-            <td>${item.room.name || ""}</td>
-            <td>${item.type.name || ""}</td>
-            <td>${item.price || ""}</td>
-            <td>${item.inDate || ""}</td>
-            <td>${item.outDate || ""}</td>
-            <td>${item.state || ""}</td>
-          `;
-          tableBody.appendChild(row);
-        });
+        renderTable(data);
       } catch (err) {
-        errorDiv.textContent = "Error: " + err.message;
+        document.getElementById("error").textContent = "Error: " + err.message;
       }
     }
 
@@ -100,7 +102,16 @@
           alert("Error: " + error);
         });
     });
+
+    // DEBUG: load all data in DB
+    function loadAllItems() {
+      fetch("/api/items/all")
+          .then(response => response.json())
+          .then(data => renderTable(data))
+          .catch(err => console.error("Error loading items:", err));
+    }
 </script>
+
 
 </body>
 </html>
